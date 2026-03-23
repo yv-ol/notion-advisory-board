@@ -72,4 +72,6 @@ In Claude Desktop, simply say:
 
 > _"Analyze this proposal: https://www.google.com/search?q=https://notion.so/your-workspace/your-page-id"_
 
+[Sample Proposal](https://www.notion.so/Proposal-Real-time-Analytics-Dashboard-eef69d17e80882a5afc18140dd9ce8a2?source=copy_link)
+
 Sit back and watch the Advisory Board debate and summarize the proposal right inside your Notion document!
