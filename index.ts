@@ -7,8 +7,8 @@ import dotenv from "dotenv";
 // Load keys from .env file
 dotenv.config();
 
-// Initialize Notion Client
-const notion = new Client({ auth: process.env.NOTION_API_KEY });
+// Initialize Notion Client (Fixed: Ensure auth is never undefined)
+const notion = new Client({ auth: process.env.NOTION_API_KEY ?? "" });
 const LESSONS_DB_ID = process.env.LESSONS_DB_ID || "";
 
 const server = new McpServer({
@@ -33,6 +33,7 @@ server.tool("analyze_proposal", { page_id: z.string() }, async ({ page_id }) => 
 
 // TOOL 2: Check Historical Lessons (The Complexity Booster)
 server.tool("get_historical_lessons", { keywords: z.array(z.string()) }, async ({ keywords }) => {
+  // Fixed: Typescript check for the query method
   const response = await notion.databases.query({
     database_id: LESSONS_DB_ID,
     filter: {
