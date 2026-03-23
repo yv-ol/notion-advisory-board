@@ -1,0 +1,12 @@
+# Ignore the secrets file
+.env
+
+# Ignore the massive folder of downloaded software
+node_modules/
+
+# Ignore log files
+*.log
+
+# Ignore the converted Javascript files (if you run tsc)
+dist/
+node_modules/
