@@ -2,13 +2,12 @@ import { McpServer } from "@modelcontextprotocol/sdk/server/mcp.js";
 import { StdioServerTransport } from "@modelcontextprotocol/sdk/server/stdio.js";
 import { Client } from "@notionhq/client";
 import { z } from "zod";
-import dotenv from "dotenv";
 
-// Load keys from .env file
-dotenv.config();
+// NOTE: We completely removed "dotenv" because it was polluting the terminal 
+// output. Claude Desktop injects the keys from your config file automatically!
 
-// Initialize Notion Client (Fixed: Ensure auth is never undefined)
-const notion = new Client({ auth: process.env.NOTION_API_KEY ?? "" });
+// Initialize Notion Client
+const notion = new Client({ auth: process.env.NOTION_API_KEY || "" });
 const LESSONS_DB_ID = process.env.LESSONS_DB_ID || "";
 
 const server = new McpServer({
@@ -20,7 +19,7 @@ const server = new McpServer({
 server.tool("analyze_proposal", { page_id: z.string() }, async ({ page_id }) => {
   const response = await notion.blocks.children.list({ block_id: page_id });
   const text = response.results
-    .map((block: any) => {
+    .map((block) => {
       const type = block.type;
       return block[type]?.rich_text?.[0]?.plain_text || "";
     })
@@ -31,9 +30,8 @@ server.tool("analyze_proposal", { page_id: z.string() }, async ({ page_id }) => 
   };
 });
 
-// TOOL 2: Check Historical Lessons (The Complexity Booster)
+// TOOL 2: Check Historical Lessons
 server.tool("get_historical_lessons", { keywords: z.array(z.string()) }, async ({ keywords }) => {
-  // Fixed: Typescript check for the query method
   const response = await notion.databases.query({
     database_id: LESSONS_DB_ID,
     filter: {
@@ -44,7 +42,7 @@ server.tool("get_historical_lessons", { keywords: z.array(z.string()) }, async (
     }
   });
 
-  const lessons = response.results.map((page: any) => {
+  const lessons = response.results.map((page) => {
     const name = page.properties.Name.title[0]?.plain_text || "Unknown Project";
     const lesson = page.properties.Lesson.rich_text[0]?.plain_text || "No details";
     return `- ${name}: ${lesson}`;
@@ -79,7 +77,7 @@ server.tool("post_opinion", {
       callout: {
         rich_text: [{ type: "text", text: { content: `${agent.toUpperCase()}: ${text}` } }],
         icon: { emoji: emojis[agent] },
-        color: colors[agent] as any,
+        color: colors[agent],
       },
     }],
   });
