@@ -12,6 +12,12 @@ By simply pasting a Notion link into Claude Desktop, this MCP server automatical
 -   **Native Notion UI:** Uses Notion's `append_block_children` API to generate beautifully formatted, color-coded callout boxes for each "Hat".
 -   **Prompt-Injection Safe:** Wraps user content in strict XML tags to prevent malicious proposals from hijacking the MCP workflow.
     
+## 📺 Demo
+[Youtube](https://youtu.be/9smM_eDeNQE)
+Sample Notion files:
+- [Notion - Lesson Learned DB](https://www.notion.so/08069d17e80883aaa6a981a9ba7468db?v=71969d17e808823b86f3886a2efd666d&source=copy_link)
+- [Sample Proposal + Results](https://www.notion.so/Proposal-Real-time-Analytics-Dashboard-eef69d17e80882a5afc18140dd9ce8a2?source=copy_link)
+
 ## 🚀 Setup & Installation
 
 ### 1. Prerequisites
