@@ -39,7 +39,7 @@ Sample Notion files:
 Clone this repository and install the dependencies:
 
 ```
-git clone <your-repo-url>
+git clone https://github.com/yv-ol/notion-advisory-board.git
 cd notion-advisory-board
 npm install
 
